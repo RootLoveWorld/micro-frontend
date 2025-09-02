@@ -60,3 +60,10 @@ The React base application acts as the main container that loads the Vue sub-app
 - **Vue 3 Sub-application**: Loaded at `/vue3` route
 
 Each application is independently deployable and can be developed by separate teams.
+
+## Recent Fixes
+
+- Added missing index.html files to all applications
+- Fixed asset paths in all applications
+- Corrected base paths in Vite configuration files
+- Added proper SVG logos for all applications

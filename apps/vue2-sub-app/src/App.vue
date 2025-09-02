@@ -6,14 +6,20 @@
     <h1>Vue 2 Sub Application</h1>
     <p>{{ message }}</p>
     <button @click="increment">Count: {{ count }}</button>
+    
+    <!-- Adding our ParentComponent -->
+    <ParentComponent />
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
+<script>
+import ParentComponent from './components/ParentComponent.vue'
 
-export default Vue.extend({
+export default {
   name: 'App',
+  components: {
+    ParentComponent
+  },
   data() {
     return {
       message: 'Hello Vue 2 + TypeScript + Vite 5!',
@@ -25,7 +31,7 @@ export default Vue.extend({
       this.count++
     }
   }
-})
+}
 </script>
 
 <style scoped>

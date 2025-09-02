@@ -1,16 +1,17 @@
 <template>
   <div id="app">
-    <div>
-      <img alt="Vue logo" src="./assets/logo.png" width="100">
-    </div>
     <h1>Vue 3 Sub Application</h1>
     <p>{{ message }}</p>
     <button @click="increment">Count: {{ count }}</button>
+    
+    <!-- Adding our ParentComponent -->
+    <ParentComponent />
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref } from 'vue'
+import ParentComponent from './components/ParentComponent.vue'
 
 const message = ref('Hello Vue 3 + TypeScript + Vite 7!')
 const count = ref(0)
