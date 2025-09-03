@@ -1,9 +1,8 @@
 <template>
   <div id="app">
     <div>
-      <img alt="Vue logo" src="./assets/logo.png" width="100">
+      <h1>Vue 2 Sub Application</h1>
     </div>
-    <h1>Vue 2 Sub Application</h1>
     <p>{{ message }}</p>
     <button @click="increment">Count: {{ count }}</button>
     

@@ -7,16 +7,21 @@ export default defineConfig({
   server: {
     port: 3000,
     strictPort: false,
-    host: true
+    host: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    }
   },
   build: {
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      // Remove externalization of React dependencies for micro-frontend compatibility
+      // external: ['react', 'react-dom'],
       output: {
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM'
-        }
+        // Remove globals configuration since we're not externalizing React
+        // globals: {
+        //   react: 'React',
+        //   'react-dom': 'ReactDOM'
+        // }
       }
     }
   }
