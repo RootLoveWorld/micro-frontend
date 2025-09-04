@@ -1,14 +1,19 @@
 import './public-path.js'
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import App from './App.vue'
+import router from './router/index'
 import './index.css'
 
 let app: any = null
+let root: any = null
 
 // @ts-ignore
 if (!window.__POWERED_BY_QIANKUN__) {
   // 独立运行
   app = createApp(App)
+  app.use(createPinia())
+  app.use(router)
   app.mount('#app')
 }
 
@@ -21,26 +26,31 @@ export async function bootstrap() {
 export async function mount(props: any) {
   console.log('props from main app', props)
   
-  // Use the container provided by qiankun or fallback to #app
-  const container = props.container ? props.container : document.querySelector('#app')
+  // Use the container provided by qiankun
+  const container = props.container ? props.container : document.getElementById('app')
   
-  // Create app element if it doesn't exist in the container
-  let appElement = container.querySelector('#app')
-  if (!appElement) {
-    appElement = document.createElement('div')
-    appElement.id = 'app'
-    container.appendChild(appElement)
+  // If no container exists, create one
+  if (!container) {
+    const div = document.createElement('div')
+    div.id = 'app'
+    document.body.appendChild(div)
   }
   
-  // Mount the Vue instance to the app element
   app = createApp(App)
-  app.mount(appElement)
+  app.use(createPinia())
+  app.use(router)
+  
+  // Store the root instance for proper unmounting
+  root = app.mount(container || '#app')
 }
 
 // @ts-ignore
 export async function unmount() {
-  app && app.unmount()
+  if (app && root) {
+    app.unmount()
+  }
   app = null
+  root = null
 }
 
 // For webpack module export

@@ -10,7 +10,7 @@ module.exports = (env, argv) => {
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'js/[name].[contenthash].js',
-      publicPath: 'http://localhost:3003/',
+      publicPath: isProduction ? '/' : 'http://localhost:3003/',
       library: 'vue3SubApp',
       libraryTarget: 'umd',
       clean: true

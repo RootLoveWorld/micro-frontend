@@ -1,24 +1,17 @@
 <template>
   <div id="app">
-    <h1>Vue 3 Sub Application</h1>
-    <p>{{ message }}</p>
-    <button @click="increment">Count: {{ count }}</button>
-    
-    <!-- Adding our ParentComponent -->
-    <ParentComponent />
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/composition-api">Composition API</router-link> |
+      <router-link to="/reactivity">Reactivity</router-link> |
+      <router-link to="/teleport">Teleport</router-link>
+    </nav>
+    <router-view></router-view>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import ParentComponent from './components/ParentComponent.vue'
-
-const message = ref('Hello Vue 3 + TypeScript + Vite 7!')
-const count = ref(0)
-
-function increment() {
-  count.value++
-}
+// Main app component - routing is handled by router-view
 </script>
 
 <style scoped>
@@ -31,12 +24,16 @@ function increment() {
   margin-top: 60px;
 }
 
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  background-color: #f8f8f8;
-  cursor: pointer;
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b883;
 }
 </style>
