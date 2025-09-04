@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 import { registerMicroApps, start, RegistrableApp, addGlobalUncaughtErrorHandler } from 'qiankun'
+import { Provider } from 'react-redux'
+import { store } from './store'
 
 // Register micro apps
 const apps: RegistrableApp<any>[] = [
@@ -89,7 +91,9 @@ addGlobalUncaughtErrorHandler((event: Event | string, source?: string, lineno?: 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
