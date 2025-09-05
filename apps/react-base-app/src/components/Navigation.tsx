@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Navigation: React.FC = () => {
   return (
     <nav style={{ margin: '20px 0', padding: '10px', backgroundColor: '#f5f5f5', borderRadius: '8px' }} data-testid="navigation">
-      <ul style={{ listStyleType: 'none', display: 'flex', justifyContent: 'center', gap: '20px', margin: 0, padding: 0 }}>
+      <ul style={{ listStyleType: 'none', display: 'flex', justifyContent: 'center', gap: '20px', margin: 0, padding: 0, flexWrap: 'wrap' }}>
         <li>
           <Link 
             to="/" 
@@ -35,6 +35,22 @@ const Navigation: React.FC = () => {
             style={{ padding: '8px 16px', backgroundColor: '#dc3545', borderRadius: '4px', textDecoration: 'none', color: 'white' }}
           >
             Micro Frontend
+          </Link>
+        </li>
+        <li>
+          <Link 
+            to="/mermaid" 
+            style={{ padding: '8px 16px', backgroundColor: '#6f42c1', borderRadius: '4px', textDecoration: 'none', color: 'white' }}
+          >
+            Mermaid Charts
+          </Link>
+        </li>
+        <li>
+          <Link 
+            to="/mermaid-test" 
+            style={{ padding: '8px 16px', backgroundColor: '#20c997', borderRadius: '4px', textDecoration: 'none', color: 'white' }}
+          >
+            Mermaid Test
           </Link>
         </li>
       </ul>

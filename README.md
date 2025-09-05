@@ -12,6 +12,8 @@ micro-frontend/
 │   └── vue3-sub-app/       # Vue 3 sub-application with TypeScript and Vite
 ├── packages/
 │   └── main-react-app/     # Original Create React App project
+├── examples/               # Example implementations
+├── docs/                   # Documentation files
 ├── package.json            # Root package.json for monorepo
 └── pnpm-workspace.yaml     # pnpm workspace configuration
 ```
@@ -23,6 +25,7 @@ micro-frontend/
   - Vue 2 + TypeScript + Vite
   - Vue 3 + TypeScript + Vite
 - **Micro-frontend Framework**: Qiankun
+- **Visualization**: Mermaid.js for diagram rendering
 - **Package Manager**: pnpm
 
 ## Getting Started
@@ -58,8 +61,45 @@ The React base application acts as the main container that loads the Vue sub-app
 - **Base Application**: Contains the main layout and navigation
 - **Vue 2 Sub-application**: Loaded at `/vue2` route
 - **Vue 3 Sub-application**: Loaded at `/vue3` route
+- **Mermaid Charts**: Integrated visualization component for diagrams
 
 Each application is independently deployable and can be developed by separate teams.
+
+## Mermaid Chart Component
+
+This project includes a custom Mermaid chart component that allows you to render diagrams and charts using Mermaid.js syntax within your React applications.
+
+### Features
+
+- Supports all major Mermaid chart types
+- Responsive design that works on all screen sizes
+- Error handling for invalid chart definitions
+- Easy to integrate with existing React applications
+
+### Usage
+
+```jsx
+import MermaidChart from './components/MermaidChart';
+
+const MyComponent = () => {
+  const chartDefinition = `graph TD
+    A[Start] --> B{Is it working?}
+    B -->|Yes| C[Great!]
+    B -->|No| D[Debug]`;
+
+  return <MermaidChart chart={chartDefinition} />;
+};
+```
+
+### Examples
+
+Visit the "Mermaid Charts" link in the navigation to see examples of:
+- Flowcharts
+- Sequence Diagrams
+- Class Diagrams
+- State Diagrams
+- Pie Charts
+- Gantt Charts
 
 ## Recent Fixes
 
@@ -67,3 +107,4 @@ Each application is independently deployable and can be developed by separate te
 - Fixed asset paths in all applications
 - Corrected base paths in Vite configuration files
 - Added proper SVG logos for all applications
+- Integrated Mermaid.js chart component with examples

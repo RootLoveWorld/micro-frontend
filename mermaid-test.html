@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mermaid Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.11.0/dist/mermaid.min.js"></script>
+    <style>
+        .mermaid-chart-container {
+            width: 100%;
+            overflow: auto;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .mermaid-chart-container svg {
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .mermaid-chart-container .error {
+            color: #d32f2f;
+            font-weight: bold;
+            padding: 20px;
+            border: 1px solid #d32f2f;
+            border-radius: 4px;
+            background-color: #ffebee;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mermaid Chart Test</h1>
+    
+    <h2>Simple Flowchart</h2>
+    <div id="simple-flowchart" class="mermaid-chart-container"></div>
+    
+    <h2>Complex Flowchart</h2>
+    <div id="complex-flowchart" class="mermaid-chart-container"></div>
+    
+    <h2>Flowchart with Chinese Characters</h2>
+    <div id="chinese-flowchart" class="mermaid-chart-container"></div>
+    
+    <script>
+        // Initialize mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+            }
+        });
+        
+        // Simple flowchart
+        const simpleFlowchart = `graph TD
+            A[Start] --> B[End]`;
+            
+        // Complex flowchart
+        const complexFlowchart = `graph TD
+            A[Start] --> B{Decision}
+            B -->|Yes| C[Action 1]
+            B -->|No| D[Action 2]
+            C --> E[End]
+            D --> E`;
+            
+        // Flowchart with Chinese characters
+        const chineseFlowchart = `graph TD
+            A[发起资源请求] --> B{缓存是否存在？}
+            B -- 否 --> C[直接向服务器请求]
+            C --> D[服务器返回资源<br>200 OK]
+            D --> E[将资源存入缓存]`;
+            
+        // Render charts
+        mermaid.render('simple-flowchart-id', simpleFlowchart).then(({ svg, bindFunctions }) => {
+            document.getElementById('simple-flowchart').innerHTML = svg;
+        }).catch((error) => {
+            document.getElementById('simple-flowchart').innerHTML = `<div class="error">Error: ${error.message}</div>`;
+        });
+        
+        mermaid.render('complex-flowchart-id', complexFlowchart).then(({ svg, bindFunctions }) => {
+            document.getElementById('complex-flowchart').innerHTML = svg;
+        }).catch((error) => {
+            document.getElementById('complex-flowchart').innerHTML = `<div class="error">Error: ${error.message}</div>`;
+        });
+        
+        mermaid.render('chinese-flowchart-id', chineseFlowchart).then(({ svg, bindFunctions }) => {
+            document.getElementById('chinese-flowchart').innerHTML = svg;
+        }).catch((error) => {
+            document.getElementById('chinese-flowchart').innerHTML = `<div class="error">Error: ${error.message}</div>
+            <details>
+                <summary>Chart content</summary>
+                <pre>${chineseFlowchart}</pre>
+            </details>`;
+        });
+    </script>
+</body>
+</html>
