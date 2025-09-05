@@ -1,22 +1,40 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const sveltePreprocess = require('svelte-preprocess');
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
   
   return {
-    entry: './src/main.tsx',
+    entry: './src/main.ts',
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'js/[name].[contenthash].js',
-      publicPath: '/',
+      publicPath: isProduction ? '/' : 'http://localhost:3004/',
+      library: 'svelteSubApp',
+      libraryTarget: 'umd',
       clean: true
     },
     resolve: {
-      extensions: ['.tsx', '.ts', '.js', '.jsx']
+      extensions: ['.ts', '.js', '.svelte'],
+      conditionNames: ['svelte', 'browser', 'import']
     },
     module: {
       rules: [
+        {
+          test: /\.svelte$/,
+          use: {
+            loader: 'svelte-loader',
+            options: {
+              compilerOptions: {
+                dev: !isProduction
+              },
+              emitCss: !isProduction,
+              hotReload: !isProduction,
+              preprocess: sveltePreprocess()
+            }
+          }
+        },
         {
           test: /\.(ts|tsx)$/,
           exclude: /node_modules/,
@@ -37,22 +55,15 @@ module.exports = (env, argv) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html'
-      }
-    )
+      })
     ],
     devServer: {
-      static: {
-        directory: path.join(__dirname, 'public')
-      },
-      port: 3000,
+      port: 3004,
       hot: true,
-      historyApiFallback: true,
       headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-        'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
-        'Access-Control-Allow-Credentials': 'true'
-      }
+        'Access-Control-Allow-Origin': '*'
+      },
+      historyApiFallback: true
     },
     devtool: isProduction ? 'source-map' : 'eval-source-map'
   };

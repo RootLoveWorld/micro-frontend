@@ -21,6 +21,10 @@ const AppRouter: React.FC = () => {
         <Route path="/mermaid-test" element={<MermaidTestPage />} />
         <Route path="/react-flow" element={<ReactFlowPage />} />
         <Route path="/react-flow-advanced" element={<AdvancedReactFlowPage />} />
+        {/* Routes for micro-frontend applications - they will be handled by Qiankun */}
+        <Route path="/vue2/*" element={<MicroFrontendPage />} />
+        <Route path="/vue3/*" element={<MicroFrontendPage />} />
+        <Route path="/svelte/*" element={<MicroFrontendPage />} />
       </Routes>
     </BrowserRouter>
   )

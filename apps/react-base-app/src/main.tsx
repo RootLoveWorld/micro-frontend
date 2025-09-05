@@ -23,6 +23,19 @@ const apps: RegistrableApp<any>[] = [
     container: '#vue3-container',
     activeRule: '/vue3',
   },
+  {
+    name: 'svelte-sub-app',
+    entry: '//localhost:3004',
+    container: '#svelte-container',
+    activeRule: '/svelte',
+    // Add props to help with ES module handling
+    props: {
+      sandbox: {
+        strictStyleIsolation: false,
+        experimentalStyleIsolation: true,
+      }
+    }
+  },
 ]
 
 registerMicroApps(apps, {
@@ -46,19 +59,36 @@ registerMicroApps(apps, {
   ],
 });
 
+// Function to check if all containers are available
+function checkContainers() {
+  const containers = ['#vue2-container', '#vue3-container', '#svelte-container'];
+  return containers.every(selector => document.querySelector(selector));
+}
+
 // Start qiankun with configuration
-start({
-  prefetch: 'all',
-  sandbox: {
-    strictStyleIsolation: false,
-    experimentalStyleIsolation: false,
-  },
-  singular: false,
-  excludeAssetFilter: (assetUrl) => {
-    // Don't exclude any assets for better compatibility
-    return false;
+function startQiankun() {
+  // Check if containers are available, if not wait a bit and try again
+  if (checkContainers()) {
+    start({
+      prefetch: 'all',
+      sandbox: {
+        strictStyleIsolation: false,
+        experimentalStyleIsolation: true, // Enable experimental style isolation for better compatibility
+      },
+      singular: false,
+      excludeAssetFilter: (assetUrl) => {
+        // Don't exclude any assets for better compatibility
+        return false;
+      }
+    });
+  } else {
+    console.log('Containers not ready, waiting...');
+    setTimeout(startQiankun, 100);
   }
-});
+}
+
+// Start Qiankun after a small delay to ensure containers are rendered
+setTimeout(startQiankun, 500);
 
 // Enhanced error handling
 addGlobalUncaughtErrorHandler((event: Event | string, source?: string, lineno?: number, colno?: number, error?: Error) => {
@@ -81,6 +111,7 @@ addGlobalUncaughtErrorHandler((event: Event | string, source?: string, lineno?: 
     if (event.error?.message?.includes('import statement outside a module')) {
       console.error('This error typically occurs when there are issues with module loading in micro-frontend setup.');
       console.error('Please check that all sub-applications are properly configured with type="module" in their index.html files.');
+      console.error('Also ensure that the sub-applications are built with proper ES module support.');
     }
   } else {
     console.error('Unknown error event:', event);

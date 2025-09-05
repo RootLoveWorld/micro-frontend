@@ -27,6 +27,12 @@ const MicroFrontendPage: React.FC = () => {
               <p>Integrated at /vue3 route</p>
               <a href="/vue3" style={{ color: '#4fc08d', fontWeight: 'bold' }}>Visit Vue 3 App</a>
             </div>
+            
+            <div style={{ flex: 1, minWidth: '200px', padding: '20px', border: '1px solid #ff3e00', borderRadius: '8px' }}>
+              <h4>Svelte App</h4>
+              <p>Integrated at /svelte route</p>
+              <a href="/svelte" style={{ color: '#ff3e00', fontWeight: 'bold' }}>Visit Svelte App</a>
+            </div>
           </div>
           
           <div style={{ marginTop: '30px', padding: '20px', border: '1px dashed #ccc', borderRadius: '8px' }}>
@@ -35,6 +41,9 @@ const MicroFrontendPage: React.FC = () => {
             <hr></hr>
             <h4>Vue 3 Sub Application</h4>
             <div id="vue3-container" style={{ minHeight: '200px' }}></div>
+            <hr></hr>
+            <h4>Svelte Sub Application</h4>
+            <div id="svelte-container" style={{ minHeight: '200px' }}></div>
           </div>
           
           <div style={{ marginTop: '20px', textAlign: 'left' }}>
