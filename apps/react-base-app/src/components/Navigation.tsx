@@ -53,6 +53,22 @@ const Navigation: React.FC = () => {
             Mermaid Test
           </Link>
         </li>
+        <li>
+          <Link 
+            to="/react-flow" 
+            style={{ padding: '8px 16px', backgroundColor: '#fd7e14', borderRadius: '4px', textDecoration: 'none', color: 'white' }}
+          >
+            React Flow
+          </Link>
+        </li>
+        <li>
+          <Link 
+            to="/react-flow-advanced" 
+            style={{ padding: '8px 16px', backgroundColor: '#e83e8c', borderRadius: '4px', textDecoration: 'none', color: 'white' }}
+          >
+            Advanced React Flow
+          </Link>
+        </li>
       </ul>
     </nav>
   )

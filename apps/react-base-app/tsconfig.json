@@ -16,11 +16,14 @@
     "noEmit": false,
     "jsx": "react-jsx",
     "outDir": "./dist",
-    "typeRoots": ["node_modules/@types", "src/types"],
-    "ignoreDeprecations": "6.0",
-    "types": ["jest", "@testing-library/jest-dom"]
+    "typeRoots": ["node_modules/@types"],
+    "types": []
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules/@types/testing-library__jest-dom",
+    "node_modules/@testing-library"
   ]
 }

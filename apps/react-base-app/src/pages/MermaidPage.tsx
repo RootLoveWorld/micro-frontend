@@ -13,21 +13,21 @@ const MermaidPage: React.FC = () => {
     E --> B
     C --> F[End]`;
   
-  const flowchartExample1 = `graph TD
-    A[Initiate resource request] --> B{Does cache exist?}
-    B -- No --> C[Request directly from server]
-    C --> D[Server returns resource<br>200 OK]
-    D --> E[Store resource in cache]
-
-    B -- Yes --> F{Check if strong cache has expired?<br>(Cache-Control/Max-Age)}
-    F -- Not expired --> G[Use cache directly<br>200 OK (from disk cache)]
-    F -- Expired --> H[Request server with cache identifier<br>(ETag/Last-Modified)]
-
-    H --> I{Does server validate cache is still valid?}
-    I -- Valid --> J[Return 304 Not Modified]
-    J --> K[Update cache validity period and use cache]
-    I -- Invalid --> L[Return new resource<br>200 OK]
-    L --> M[Update cache]`;
+  const flowchartExample1 = `flowchart TD
+    A[发起资源请求] --> B{缓存是否存在？}
+    B -- 否 --> C[直接向服务器请求]
+    C --> D[服务器返回资源<br>200 OK]
+    D --> E[将资源存入缓存]
+    
+    B -- 是 --> F{检查强缓存是否过期？<br>（Cache-Control/Max-Age）}
+    F -- 未过期 --> G[直接使用缓存<br>200 OK (from disk cache)]
+    F -- 已过期 --> H[携带缓存'标识'<br>（如ETag/Last-Modified）请求服务器]
+    
+    H --> I{服务器验证缓存是否仍有效？}
+    I -- 有效 --> J[返回 304 Not Modified]
+    J --> K[更新缓存有效期后使用缓存]
+    I -- 无效 --> L[返回新资源<br>200 OK]
+    L --> M[更新缓存]`;
   
   const sequenceDiagramExample = `sequenceDiagram
     participant U as User

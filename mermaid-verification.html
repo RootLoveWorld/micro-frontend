@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mermaid Component Verification</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.11.0/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .chart-container {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            margin: 20px 0;
+            min-height: 200px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .error {
+            color: #d32f2f;
+            font-weight: bold;
+            padding: 20px;
+            border: 1px solid #d32f2f;
+            border-radius: 4px;
+            background-color: #ffebee;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mermaid Component Verification</h1>
+    
+    <h2>Flowchart Test</h2>
+    <div id="flowchart-test" class="chart-container"></div>
+    
+    <h2>Sequence Diagram Test</h2>
+    <div id="sequence-test" class="chart-container"></div>
+    
+    <h2>Class Diagram Test</h2>
+    <div id="class-test" class="chart-container"></div>
+    
+    <script>
+        // Initialize mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+            }
+        });
+        
+        // Test charts
+        const flowchart = `graph TD
+            A[Start] --> B{Is it working?}
+            B -->|Yes| C[Great!]
+            B -->|No| D[Debug]
+            D --> E[Fix issue]
+            E --> B
+            C --> F[End]`;
+            
+        const sequenceDiagram = `sequenceDiagram
+            participant U as User
+            participant A as Application
+            participant S as Server
+            
+            U->>A: User action
+            A->>S: API request
+            S-->>A: Response
+            A-->>U: Update UI`;
+            
+        const classDiagram = `classDiagram
+            Animal <|-- Duck
+            Animal <|-- Fish
+            Animal: +int age
+            Animal: +String gender
+            Animal: +isMammal()
+            Animal: +mate()
+            
+            class Duck {
+              +String beakColor
+              +swim()
+              +quack()
+            }
+            
+            class Fish {
+              -int sizeInFeet
+              -canEat()
+            }`;
+            
+        // Render charts
+        function renderChart(elementId, chartDefinition) {
+            const element = document.getElementById(elementId);
+            mermaid.render(elementId + '-svg', chartDefinition)
+                .then(({ svg, bindFunctions }) => {
+                    element.innerHTML = svg;
+                })
+                .catch((error) => {
+                    element.innerHTML = `<div class="error">Error rendering chart: ${error.message}</div>`;
+                    console.error('Error rendering chart:', error);
+                });
+        }
+        
+        // Render all charts
+        renderChart('flowchart-test', flowchart);
+        renderChart('sequence-test', sequenceDiagram);
+        renderChart('class-test', classDiagram);
+    </script>
+</body>
+</html>

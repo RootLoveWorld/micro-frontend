@@ -31,6 +31,11 @@ const HomePage: React.FC = () => {
             <h3>Mermaid Charts</h3>
             <p>Visualize diagrams and charts with Mermaid.js integration</p>
           </div>
+          
+          <div style={{ flex: 1, minWidth: '200px', padding: '20px', border: '1px solid #ddd', borderRadius: '8px' }}>
+            <h3>React Flow</h3>
+            <p>Create interactive node-based diagrams and flowcharts</p>
+          </div>
         </div>
       </div>
     </div>
