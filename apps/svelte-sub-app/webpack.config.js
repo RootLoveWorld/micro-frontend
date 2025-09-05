@@ -16,8 +16,7 @@ module.exports = (env, argv) => {
       clean: true
     },
     resolve: {
-      extensions: ['.ts', '.js', '.svelte'],
-      conditionNames: ['svelte', 'browser', 'import']
+      extensions: ['.ts', '.js', '.svelte']
     },
     module: {
       rules: [
