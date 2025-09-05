@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const sveltePreprocess = require('svelte-preprocess');
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
@@ -16,7 +15,8 @@ module.exports = (env, argv) => {
       clean: true
     },
     resolve: {
-      extensions: ['.ts', '.js', '.svelte']
+      extensions: ['.ts', '.js', '.svelte'],
+      conditionNames: ['svelte', 'browser', 'import', 'require', 'node'] // Added 'svelte' as recommended
     },
     module: {
       rules: [
@@ -29,14 +29,13 @@ module.exports = (env, argv) => {
                 dev: !isProduction
               },
               emitCss: !isProduction,
-              hotReload: !isProduction,
-              preprocess: sveltePreprocess()
+              hotReload: !isProduction
             }
           }
         },
         {
           test: /\.(ts|tsx)$/,
-          exclude: /node_modules/,
+          exclude: [/node_modules/, /\.d\.ts$/],
           use: {
             loader: 'ts-loader'
           }

@@ -1,6 +1,5 @@
 import './public-path.js';
 import App from './App.svelte';
-import './global.d.ts';
 import { mount as svelteMount } from 'svelte';
 
 let app: any = null;
